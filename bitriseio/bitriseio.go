@@ -61,9 +61,9 @@ func UploadCodesigningFiles(client *bitrise.Client, certificates models.Certific
 }
 
 func askAccessToken() (token string, err error) {
-	messageToAsk := `Please copy your personal access token to Bitrise.
-(To acquire a Personal Access Token for your user, sign in with that user on bitrise.io, go to your Account Settings page,
-and select the Security tab on the left side.)`
+	messageToAsk := `Please copy your Bitrise personal access token.
+To acquire a Personal Access Token for your user, sign in with that user on bitrise.io, go to your Account Settings page,
+and select the Security tab on the left side. (https://app.bitrise.io/me/profile#/security)`
 	fmt.Println()
 
 	accesToken, err := goinp.AskForStringFromReader(messageToAsk, os.Stdin)
@@ -84,7 +84,7 @@ func selectApp(appList []bitrise.Application) (seledtedAppSlug string, err error
 	for _, app := range appList {
 		selectionList = append(selectionList, app.Title+" ("+app.RepoURL+")")
 	}
-	userSelection, err := goinp.SelectFromStringsWithDefault("Select the app which you want to upload the provisioning profiles", 1, selectionList)
+	userSelection, err := goinp.SelectFromStringsWithDefault("Select the app for which you want to upload the provisioning profiles", 1, selectionList)
 
 	if err != nil {
 		return "", fmt.Errorf("failed to read input: %s", err)
@@ -123,7 +123,7 @@ func uploadExportedProvProfiles(bitriseClient *bitrise.Client, profilesToExport 
 }
 
 func filterAlreadyUploadedProvProfiles(client *bitrise.Client, localProfiles []models.ProvisioningProfile) ([]models.ProvisioningProfile, error) {
-	log.Printf("Looking for provisioning profile duplicates on Bitrise...")
+	log.Printf("Looking for duplicate provisioning profile on Bitrise...")
 
 	uploadedProfileUUIDList := map[string]bool{}
 	var profilesToUpload []models.ProvisioningProfile
@@ -200,7 +200,7 @@ func uploadExportedIdentity(bitriseClient *bitrise.Client, certificates models.C
 }
 
 func shouldUploadCertificates(client *bitrise.Client, certificatesToExport []certificateutil.CertificateInfoModel) (bool, error) {
-	log.Printf("Looking for certificate duplicates on Bitrise...")
+	log.Printf("Looking for duplicate certificate on Bitrise...")
 
 	var uploadedCertificatesSerialList []string
 	localCertificatesSerialList := []string{}
