@@ -123,7 +123,7 @@ func uploadExportedProvProfiles(bitriseClient *bitrise.Client, profilesToExport 
 }
 
 func filterAlreadyUploadedProvProfiles(client *bitrise.Client, localProfiles []models.ProvisioningProfile) ([]models.ProvisioningProfile, error) {
-	log.Printf("Looking for duplicate provisioning profile on Bitrise...")
+	log.Printf("Looking for duplicate provisioning profiles on Bitrise...")
 
 	uploadedProfileUUIDList := map[string]bool{}
 	var profilesToUpload []models.ProvisioningProfile
@@ -200,7 +200,7 @@ func uploadExportedIdentity(bitriseClient *bitrise.Client, certificates models.C
 }
 
 func shouldUploadCertificates(client *bitrise.Client, certificatesToExport []certificateutil.CertificateInfoModel) (bool, error) {
-	log.Printf("Looking for duplicate certificate on Bitrise...")
+	log.Printf("Looking for duplicate certificates on Bitrise...")
 
 	var uploadedCertificatesSerialList []string
 	localCertificatesSerialList := []string{}
